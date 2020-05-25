@@ -1,6 +1,6 @@
 # Julien-ITS
 
-## emails-queue-s4
+## emails-queue-s5
 
 ### Features
 
@@ -14,7 +14,7 @@ Define how many emails you want to send each time you call the process queue act
 Install with composer
 
 ```sh
-$ composer require julien-its/emails-queue-s4
+$ composer require julien-its/emails-queue-s5
 ```
 
 ### Instructions
