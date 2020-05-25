@@ -19,7 +19,7 @@ class EmailService
     public function __construct(
         EntityManagerInterface $em,
         RouterInterface $router,
-        \Twig_Environment $twig,
+        \Twig\Environment $twig,
         TokenStorageInterface $tokenStorage,
         EmailsQueueService $emailsQueueService
     )
@@ -40,7 +40,7 @@ class EmailService
 
 	public function createNew($config)
 	{
-		$tpl = $this->twig->loadTemplate($config['template']);
+		$tpl = $this->twig->load($config['template']);
 		$emailHtml = $tpl->render($config['templateVars']);
 
 		$emailQueue = new \JulienIts\EmailsQueueBundle\Entity\EmailQueue();
@@ -62,7 +62,7 @@ class EmailService
 
         // Add body text
 		if(isset($config['templateText'])){
-			$tplText = $this->twig->loadTemplate($config['templateText']);
+			$tplText = $this->twig->load($config['templateText']);
 			$emailText = $tplText->render($config['templateVars']);
 			$emailQueue->setBodyText($emailText);
 		}
