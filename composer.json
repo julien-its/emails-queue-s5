@@ -1,7 +1,7 @@
 {  
-   "name": "julien-its/emails-queue-s4",
+   "name": "julien-its/emails-queue-s5",
    "type": "symfony-bundle",
-   "description": "Symfony Easy Emails Queue Bundle for symfony 4",
+   "description": "Symfony Easy Emails Queue Bundle for symfony 5",
    "keywords": [],
    "license": "GPL-3.0+",
    "authors":[  
@@ -13,7 +13,7 @@
    ],
    "require":{  
       "php": ">=7.0",
-      "symfony/framework-bundle": ">=4.0",
+      "symfony/framework-bundle": ">=5.0",
       "symfony/swiftmailer-bundle": "^3.2"
    },
    "autoload":{  
