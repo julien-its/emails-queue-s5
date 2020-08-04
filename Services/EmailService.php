@@ -51,6 +51,9 @@ class EmailService
         if(isset($config['emailsBcc'])){
             $emailQueue->setEmailsBcc($config['emailsBcc']);
         }
+        if(isset($config['replyTo'])){
+            $emailQueue->setReplyTo($config['replyTo']);
+        }
 
 		$emailQueue->setPriority($config['priority']);
 		$emailQueue->setSubject($config['subject']);
