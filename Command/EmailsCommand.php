@@ -60,6 +60,7 @@ class EmailsCommand extends Command
         $this->emailsQueueService->processQueue($this->_limit);
 
         $output->writeLn('Queue processed');
+        return 0;
 
     }
 }
