@@ -3,6 +3,7 @@
 
 namespace JulienIts\EmailsQueueBundle\Command;
 
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -22,7 +23,7 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
  * @author Julien Gustin
  * Usage exemple : php bin/console jits:queue:process --limit 30
  */
-class EmailsCommand extends ContainerAwareCommand
+class EmailsCommand extends Command
 {
     protected static $defaultName = 'jits:queue:process';
 
