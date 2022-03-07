@@ -36,8 +36,12 @@ class EmailService
 
 	public function createNew($config)
 	{
-		$tpl = $this->twig->load($config['template']);
-		$emailHtml = $tpl->render($config['templateVars']);
+        if(key_exists('emailHtml', $config)){
+            $emailHtml = $config['emailHtml'];
+        }else{
+            $tpl = $this->twig->load($config['template']);
+            $emailHtml = $tpl->render($config['templateVars']);
+        }
 
 		$emailQueue = new \JulienIts\EmailsQueueBundle\Entity\EmailQueue();
 		$emailQueue->setBody($emailHtml);
