@@ -18,9 +18,9 @@ Before installation :
 Add in your .env file
 
 ```sh
-EMAILS_QUEUE_MODE: "prod"
-EMAILS_QUEUE_DEBUG_TO: ""
-EMAILS_QUEUE_DEBUG_CC: ""
+EMAILS_QUEUE_MODE= "prod"
+EMAILS_QUEUE_DEBUG_TO= ""
+EMAILS_QUEUE_DEBUG_CC= ""
 ```
 
 Add emails_queue.yaml in /config/packages
