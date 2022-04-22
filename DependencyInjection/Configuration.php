@@ -13,7 +13,7 @@ class Configuration implements ConfigurationInterface
 
         $treeBuilder->getRootNode()
             ->children()
-            ->scalarNode('mode')->end()
+                ->scalarNode('mode')->end()
             ->end()
         ;
 
