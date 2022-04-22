@@ -49,9 +49,9 @@ class EmailService
 
 		$emailQueue = new \JulienIts\EmailsQueueBundle\Entity\EmailQueue();
 
-        dump($this->param->get('julien_its_emails_queue.mode'));die;
+        dump($this->param->get('emails_queue.mode'));die;
 
-        if($this->param->get('julien_its_emails_queue.mode') == 'prod'){
+        if($this->param->get('emails_queue.mode') == 'prod'){
 
         }
 
