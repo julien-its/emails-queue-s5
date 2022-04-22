@@ -1,10 +1,31 @@
 {
-  "env": {
-    "EMAILS_QUEUE_MODE": "prod",
-    "EMAILS_QUEUE_DEBUG_TO": "",
-    "EMAILS_QUEUE_DEBUG_CC": ""
-  },
-  "copy-from-package": {
-    "Resources/config/emails_queue.yaml": "%CONF_DIR%/packages/emails_queue.yaml"
+  "manifests": {
+    "julien_its/emails_queue": {
+      "manifest": {
+        "bundles": {
+          "JulienIts\\EmailsQueueBundle": [
+            "all"
+          ]
+        },
+        "env": {
+          "EMAILS_QUEUE_MODE": "prod",
+          "EMAILS_QUEUE_DEBUG_TO": "",
+          "EMAILS_QUEUE_DEBUG_CC": ""
+        }
+      },
+      "files": {
+        "config/packages/emails_queue.yaml": {
+          "contents": [
+            "emails_queue:",
+            "    mode: '%env(EMAILS_QUEUE_MODE)%'",
+            "    debug_to: '%env(EMAILS_QUEUE_DEBUG_TO)%'",
+            "    debug_cc: '%env(EMAILS_QUEUE_DEBUG_CC)%'",
+            ""
+          ],
+          "executable": false
+        }
+      },
+      "ref": "2ba3f6a84dbb06a8af2fadeca62d7ed11a2ffa1d"
+    }
   }
 }
