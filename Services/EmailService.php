@@ -2,6 +2,7 @@
 
 namespace JulienIts\EmailsQueueBundle\Services;
 
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -14,18 +15,21 @@ class EmailService
     protected $tokenStorage;
     protected $user;
     protected $emailsQueueService;
+    protected $param;
 
     public function __construct(
         EntityManagerInterface $em,
         RouterInterface $router,
         \Twig\Environment $twig,
-        EmailsQueueService $emailsQueueService
+        EmailsQueueService $emailsQueueService,
+        ParameterBagInterface $param
     )
     {
         $this->em = $em;
 		$this->router = $router;
 		$this->twig = $twig;
         $this->emailsQueueService = $emailsQueueService;
+        $this->param = $param;
     }
 
     public function createNewAndProcess($config)
@@ -44,6 +48,14 @@ class EmailService
         }
 
 		$emailQueue = new \JulienIts\EmailsQueueBundle\Entity\EmailQueue();
+
+        dump($this->param->get('julien_its_emails_queue.mode'));die;
+
+        if($this->param->get('julien_its_emails_queue.mode') == 'prod'){
+
+        }
+
+
 		$emailQueue->setBody($emailHtml);
 		$emailQueue->setContext($this->em->getRepository('EmailsQueueBundle:EmailContext')->findOneByName($config['contextName']));
 		$emailQueue->setEmailFrom($config['emailFrom']);
