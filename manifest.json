@@ -3,5 +3,8 @@
     "EMAILS_QUEUE_MODE": "prod",
     "EMAILS_QUEUE_DEBUG_TO": "",
     "EMAILS_QUEUE_DEBUG_CC": ""
+  },
+  "copy-from-package": {
+    "Resources/config/emails_queue.yaml": "%CONF_DIR%/packages/emails_queue.yaml"
   }
 }
