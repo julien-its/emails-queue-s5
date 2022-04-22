@@ -10,12 +10,12 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('julien_its_emails_queue');
+        $treeBuilder = new TreeBuilder('julienits_emailsqueue');
 
         /** @var ArrayNodeDefinition $rootNode */
         $rootNode = method_exists(TreeBuilder::class, 'getRootNode')
             ? $treeBuilder->getRootNode()
-            : $treeBuilder->root('julien_its_emails_queue');
+            : $treeBuilder->root('julienits_emailsqueue');
 
         $rootNode
             ->children()
