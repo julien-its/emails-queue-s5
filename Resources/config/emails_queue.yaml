@@ -1,4 +1,4 @@
 emails_queue:
-  mode: prod
-  debug_to: test@test.com
-  debug_cc: test@test.com
+  mode: '%env(EMAILS_QUEUE_MODE)%'
+  debug_to: '%env(EMAILS_QUEUE_DEBUG_TO)%'
+  debug_cc: '%env(EMAILS_QUEUE_DEBUG_CC)%'

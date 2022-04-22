@@ -1,0 +1,7 @@
+{
+  "env": {
+    "EMAILS_QUEUE_MODE": "prod",
+    "EMAILS_QUEUE_DEBUG_TO": "",
+    "EMAILS_QUEUE_DEBUG_CC": ""
+  }
+}
