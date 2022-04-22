@@ -23,8 +23,9 @@ class EmailsQueueExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        //$definition = $container->getDefinition('julien_its_emails_queue');
-        //$definition->replaceArgument(0, $config['mode']);
+        $container->setParameter('emails_queue.mode', $config['mode']);
+        $container->setParameter('emails_queue.debug_to', $config['debug_to']);
+        $container->setParameter('emails_queue.debug_cc', $config['debug_cc']);
 
     }
 }
