@@ -1,0 +1,4 @@
+emails_queue:
+  mode: prod
+  debug_to: test@test.com
+  debug_cc: test@test.com
