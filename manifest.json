@@ -1,17 +1,10 @@
 {
   "manifests": {
-    "julien-its/emails-queue": {
-      "manifest": {
-        "bundles": {
-          "JulienIts\\EmailsQueueBundle": [
-            "all"
-          ]
-        },
-        "env": {
-          "EMAILS_QUEUE_MODE": "prod",
-          "EMAILS_QUEUE_DEBUG_TO": "",
-          "EMAILS_QUEUE_DEBUG_CC": ""
-        }
+    "julien-its/emails-queue-s5": {
+      "env": {
+        "EMAILS_QUEUE_MODE": "prod",
+        "EMAILS_QUEUE_DEBUG_TO": "",
+        "EMAILS_QUEUE_DEBUG_CC": ""
       },
       "files": {
         "config/packages/emails_queue.yaml": {
