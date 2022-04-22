@@ -2,6 +2,7 @@
 
 namespace JulienIts\EmailsQueueBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -9,29 +10,23 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('acme_social');
+        $treeBuilder = new TreeBuilder('julien_its_emails_queue');
 
-        $treeBuilder->getRootNode()
+        /** @var ArrayNodeDefinition $rootNode */
+        $rootNode = method_exists(TreeBuilder::class, 'getRootNode')
+            ? $treeBuilder->getRootNode()
+            : $treeBuilder->root('julien_its_emails_queue');
+
+        $rootNode
             ->children()
-            ->arrayNode('twitter')
-            ->children()
-            ->integerNode('client_id')->end()
-            ->scalarNode('client_secret')->end()
-            ->end()
-            ->end() // twitter
+                ->scalarNode('mode')
+                    ->info('If mode is not prod, emails will not be sent to the defined to/cc/bcc but to the debug to, debug cc')
+                ->end()
+                ->scalarNode('debug_to')->end()
+                ->scalarNode('debug_cc')->end()
             ->end()
         ;
 
         return $treeBuilder;
-
-        /*$treeBuilder = new TreeBuilder('julien_its_emails_queue');
-
-        $treeBuilder->getRootNode()
-            ->children()
-                ->scalarNode('mode')->end()
-            ->end()
-        ;
-
-        return $treeBuilder;*/
     }
 }
