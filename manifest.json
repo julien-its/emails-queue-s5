@@ -1,6 +1,6 @@
 {
   "manifests": {
-    "julien_its/emails_queue": {
+    "julien-its/emails-queue": {
       "manifest": {
         "bundles": {
           "JulienIts\\EmailsQueueBundle": [
