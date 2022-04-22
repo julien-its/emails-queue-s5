@@ -12,13 +12,18 @@ class EmailsQueueExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)
     {
+        // Load the bundle config service.yml from this bundle
         $loader = new YamlFileLoader(
             $container,
             new FileLocator(__DIR__.'/../Resources/config')
         );
         $loader->load('services.yml');
 
+        // Define package parameters config when install the bundle
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
+
+        //$definition = $container->getDefinition('julien_its_emails_queue');
+        //$definition->replaceArgument(0, $config['mode']);
     }
 }
