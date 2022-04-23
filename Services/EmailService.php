@@ -69,6 +69,8 @@ class EmailService
             }else{
                 if(!empty($this->param->get('emails_queue.debug_to'))){
                     $emailQueue->setEmailTo($this->param->get('emails_queue.debug_to'));
+                }else{
+                    $emailQueue->setEmailTo('info@'.gethostname());
                 }
                 if(!empty($this->param->get('emails_queue.debug_cc'))){
                     $emailQueue->setEmailsBcc($this->param->get('emails_queue.debug_cc'));
@@ -92,7 +94,6 @@ class EmailService
 
             $this->em->persist($emailQueue);
             $this->em->flush();
-            die('mail created');
         }catch(\Exception $e){
             echo $e->getMessage();die;
         }
