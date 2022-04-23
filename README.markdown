@@ -15,22 +15,19 @@ Install with composer
 
 Before installation :
 
-Add in your .env file
+Add in your composer.json
 
 ```sh
-EMAILS_QUEUE_MODE= "prod"
-EMAILS_QUEUE_DEBUG_TO= ""
-EMAILS_QUEUE_DEBUG_CC= ""
+"extra": {
+  "symfony": {
+     "endpoint": [
+        "https://api.github.com/repos/julien-its/symfony-recipes/contents/index.json",
+        "flex://defaults"
+     ]
+  }
+}
 ```
-
-Add emails_queue.yaml in /config/packages
-
-```sh
-emails_queue:
-  mode: '%env(EMAILS_QUEUE_MODE)%'
-  debug_to: '%env(EMAILS_QUEUE_DEBUG_TO)%'
-  debug_cc: '%env(EMAILS_QUEUE_DEBUG_CC)%'
-```
+The extra.symfony key will most probably already exist in your composer.json. In that case, add the "endpoint" key to the existing extra.symfony entry.
 
 You can now install it via composer
 
@@ -41,6 +38,15 @@ $ composer require julien-its/emails-queue-s5
 ### Instructions
 
 Once installed,
+
+adjust parameters in /config/packages/emails_queue.yaml 
+
+```sh
+emails_queue:
+  mode: '%env(EMAILS_QUEUE_MODE)%'
+  debug_to: '%env(EMAILS_QUEUE_DEBUG_TO)%'
+  debug_cc: '%env(EMAILS_QUEUE_DEBUG_CC)%'
+```
 
 **Generate new tables in your database with doctrine**
 
