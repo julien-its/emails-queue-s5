@@ -21,5 +21,13 @@
          "JulienIts\\EmailsQueueBundle": ""
       }
    },
-   "target-dir":"JulienIts/EmailsQueueBundle"
+   "target-dir":"JulienIts/EmailsQueueBundle",
+   "extra": {
+      "symfony": {
+         "endpoint": [
+            "https://api.github.com/repos/julien-its/symfony-recipes/contents/index.json",
+            "flex://defaults"
+         ]
+      }
+   }
 }
