@@ -40,56 +40,61 @@ class EmailService
 
 	public function createNew($config)
 	{
-        if(key_exists('emailHtml', $config)){
-            $emailHtml = $config['emailHtml'];
-        }else{
-            $tpl = $this->twig->load($config['template']);
-            $emailHtml = $tpl->render($config['templateVars']);
+        try{
+            if(key_exists('emailHtml', $config)){
+                $emailHtml = $config['emailHtml'];
+            }else{
+                $tpl = $this->twig->load($config['template']);
+                $emailHtml = $tpl->render($config['templateVars']);
+            }
+
+            $emailQueue = new \JulienIts\EmailsQueueBundle\Entity\EmailQueue();
+
+            $emailQueue->setBody($emailHtml);
+            $emailQueue->setContext($this->em->getRepository('EmailsQueueBundle:EmailContext')->findOneByName($config['contextName']));
+            $emailQueue->setEmailFrom($config['emailFrom']);
+            $emailQueue->setEmailFromName($config['emailFromName']);
+            if(isset($config['replyTo'])){
+                $emailQueue->setReplyTo($config['replyTo']);
+            }
+
+            if($this->param->get('emails_queue.mode') == 'prod'){
+                $emailQueue->setEmailTo($config['emailTo']);
+                if(isset($config['emailsCc'])){
+                    $emailQueue->setEmailsCc($config['emailsCc']);
+                }
+                if(isset($config['emailsBcc'])){
+                    $emailQueue->setEmailsBcc($config['emailsBcc']);
+                }
+            }else{
+                if(!empty($this->param->get('emails_queue.debug_to'))){
+                    $emailQueue->setEmailTo($this->param->get('emails_queue.debug_to'));
+                }
+                if(!empty($this->param->get('emails_queue.debug_cc'))){
+                    $emailQueue->setEmailsBcc($this->param->get('emails_queue.debug_cc'));
+                }
+                $body = $emailQueue->getBody() ;
+                $body .= PHP_EOL . PHP_EOL . PHP_EOL
+                    . '[DEBUG] Ce message a été envoyé a '. $config['emailTo'];
+                $emailQueue->setBody($body);
+            }
+
+            $emailQueue->setPriority($config['priority']);
+            $emailQueue->setSubject($config['subject']);
+            $emailQueue->setCreatedOn(new \DateTime());
+
+            // Add body text
+            if(isset($config['templateText'])){
+                $tplText = $this->twig->load($config['templateText']);
+                $emailText = $tplText->render($config['templateVars']);
+                $emailQueue->setBodyText($emailText);
+            }
+
+            $this->em->persist($emailQueue);
+            $this->em->flush();
+        }catch(\Exception $e){
+            echo $e->getMessage();die;
         }
 
-		$emailQueue = new \JulienIts\EmailsQueueBundle\Entity\EmailQueue();
-
-        $emailQueue->setBody($emailHtml);
-        $emailQueue->setContext($this->em->getRepository('EmailsQueueBundle:EmailContext')->findOneByName($config['contextName']));
-        $emailQueue->setEmailFrom($config['emailFrom']);
-        $emailQueue->setEmailFromName($config['emailFromName']);
-        if(isset($config['replyTo'])){
-            $emailQueue->setReplyTo($config['replyTo']);
-        }
-
-        if($this->param->get('emails_queue.mode') == 'prod'){
-            $emailQueue->setEmailTo($config['emailTo']);
-            if(isset($config['emailsCc'])){
-                $emailQueue->setEmailsCc($config['emailsCc']);
-            }
-            if(isset($config['emailsBcc'])){
-                $emailQueue->setEmailsBcc($config['emailsBcc']);
-            }
-        }else{
-            if(!empty($this->param->get('emails_queue.debug_to'))){
-                $emailQueue->setEmailTo($this->param->get('emails_queue.debug_to'));
-            }
-            if(!empty($this->param->get('emails_queue.debug_cc'))){
-                $emailQueue->setEmailsBcc($this->param->get('emails_queue.debug_cc'));
-            }
-            $body = $emailQueue->getBody() ;
-            $body .= PHP_EOL . PHP_EOL . PHP_EOL
-                . '[DEBUG] Ce message a été envoyé a '. $config['emailTo'];
-            $emailQueue->setBody($body);
-        }
-
-		$emailQueue->setPriority($config['priority']);
-		$emailQueue->setSubject($config['subject']);
-        $emailQueue->setCreatedOn(new \DateTime());
-
-        // Add body text
-		if(isset($config['templateText'])){
-			$tplText = $this->twig->load($config['templateText']);
-			$emailText = $tplText->render($config['templateVars']);
-			$emailQueue->setBodyText($emailText);
-		}
-
-		$this->em->persist($emailQueue);
-		$this->em->flush();
 	}
 }
