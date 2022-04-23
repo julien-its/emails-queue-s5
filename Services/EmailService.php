@@ -92,6 +92,7 @@ class EmailService
 
             $this->em->persist($emailQueue);
             $this->em->flush();
+            die('mail created');
         }catch(\Exception $e){
             echo $e->getMessage();die;
         }
