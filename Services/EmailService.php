@@ -49,12 +49,11 @@ class EmailService
 
 		$emailQueue = new \JulienIts\EmailsQueueBundle\Entity\EmailQueue();
 
-        dump($this->param->get('emails_queue.mode'));die;
-
-        if($this->param->get('emails_queue.mode') == 'prod'){
-
+        try{
+            dump($this->param->get('emails_queue.mode'));die;
+        }catch(\Exception $e){
+            die(' - -- ERROR------');
         }
-
 
 		$emailQueue->setBody($emailHtml);
 		$emailQueue->setContext($this->em->getRepository('EmailsQueueBundle:EmailContext')->findOneByName($config['contextName']));
