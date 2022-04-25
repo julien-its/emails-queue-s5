@@ -2,6 +2,7 @@
 
 namespace JulienIts\EmailsQueueBundle\Services;
 
+use JulienIts\EmailsQueueBundle\Entity\EmailContext;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Doctrine\ORM\EntityManagerInterface;
@@ -50,8 +51,14 @@ class EmailService
 
             $emailQueue = new \JulienIts\EmailsQueueBundle\Entity\EmailQueue();
 
+            $context = $this->em->getRepository(EmailContext::class)->findOneByName($config['contextName']);
+            if(!$context){
+                $context = (new EmailContext())->setName($config['contextName']);
+                $this->em->persist($context);
+            }
+
             $emailQueue->setBody($emailHtml);
-            $emailQueue->setContext($this->em->getRepository('EmailsQueueBundle:EmailContext')->findOneByName($config['contextName']));
+            $emailQueue->setContext($context);
             $emailQueue->setEmailFrom($config['emailFrom']);
             $emailQueue->setEmailFromName($config['emailFromName']);
             if(isset($config['replyTo'])){
