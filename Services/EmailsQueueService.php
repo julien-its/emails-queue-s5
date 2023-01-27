@@ -21,7 +21,7 @@ class EmailsQueueService
 
     public function processQueue($limit=15)
     {
-        $queueRepo = $this->em->getRepository('EmailsQueueBundle:EmailQueue');
+        $queueRepo = $this->em->getRepository(EmailQueue::class);
         $emailsQueue = $queueRepo->findBy(array(), array('priority'=>'desc', 'id'=>'desc'), $limit);
         foreach($emailsQueue as $emailQueue){
             $this->_sendEmailQueue($emailQueue);

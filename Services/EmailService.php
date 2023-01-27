@@ -4,7 +4,6 @@ namespace JulienIts\EmailsQueueBundle\Services;
 
 use JulienIts\EmailsQueueBundle\Entity\EmailContext;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -13,7 +12,6 @@ class EmailService
     protected $em;
     protected $router;
     protected $twig;
-    protected $tokenStorage;
     protected $user;
     protected $emailsQueueService;
     protected $param;
